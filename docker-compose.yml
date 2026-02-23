@@ -1,0 +1,44 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: smartcart_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: smartcart
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: smartcart_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+
+  api:
+    build: .
+    container_name: smartcart_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/smartcart
+      - REDIS_URI=redis://redis:6379
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      - mongo
+      - redis
+    volumes:
+      - .:/app
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+
+volumes:
+  mongo_data:
+  redis_data:
