@@ -1,10 +1,10 @@
-# 🛒 SmartCart — LLM-Enhanced E-commerce Recommender System
+# SmartCart — LLM-Enhanced E-commerce Recommender System
 
 A production-grade hybrid recommendation engine that combines **Collaborative Filtering**, **Content-Based Filtering**, and **LLM re-ranking** to deliver personalized product recommendations. Built with FastAPI, MongoDB, and Redis.
 
 ---
 
-## 📌 What Does This Project Do?
+## What Does This Project Do?
 
 Imagine you're building Amazon. You have 10,000 products and a user visits your homepage. You can't show them everything — you need to pick the 10 most relevant products *for that specific user*. How?
 
@@ -12,7 +12,7 @@ That's exactly what SmartCart solves. It looks at what a user has viewed, liked,
 
 ---
 
-## 🧠 How It Works — The 3-Stage Pipeline
+## How It Works — The 3-Stage Pipeline
 
 Every time a user requests recommendations, the system runs through three stages:
 
@@ -84,9 +84,9 @@ A user's taste is the **weighted average** of the vectors of everything they've 
 
 | | CF | CB |
 |---|---|---|
-| New users | ❌ Fails (no history) | ✅ Works |
-| Cross-category discovery | ✅ Great | ❌ Poor |
-| Filter bubbles | ✅ Avoids them | ❌ Creates them |
+| New users | Fails (no history) | Works |
+| Cross-category discovery | Great | Poor |
+| Filter bubbles |  Avoids them | Creates them |
 
 Using both covers each other's weaknesses. This is how Spotify, Netflix, and Amazon do it.
 
@@ -114,7 +114,7 @@ The prompt uses four engineering techniques:
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 smartcart-recommender/
@@ -151,7 +151,7 @@ smartcart-recommender/
 
 ---
 
-## 🗄️ Data Layer
+## Data Layer
 
 ### MongoDB Collections
 
@@ -200,7 +200,7 @@ smartcart-recommender/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.12
@@ -253,9 +253,9 @@ uvicorn api.main:app --reload
 
 You should see:
 ```
-✅ Connected to MongoDB and Redis
-✅ Loaded 20 product embeddings
-✅ Trained CF model on 4 users
+ Connected to MongoDB and Redis
+ Loaded 20 product embeddings
+ Trained CF model on 4 users
 INFO: Uvicorn running on http://127.0.0.1:8000
 ```
 
@@ -332,7 +332,7 @@ curl http://localhost:8000/health | python3 -m json.tool
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Technology | Why |
 |-------|-----------|-----|
@@ -346,7 +346,7 @@ curl http://localhost:8000/health | python3 -m json.tool
 
 ---
 
-## 💡 Key Design Decisions
+## Key Design Decisions
 
 **Why re-rank with LLM instead of generate?**
 Generation means calling the LLM against your entire catalog — slow and expensive. Re-ranking means calling it on 20 pre-filtered candidates — fast and cheap. The heavy lifting is done by fast ML models; LLM only adds the final personalization layer.
@@ -362,7 +362,7 @@ SVD training reads the entire interaction matrix and does heavy linear algebra. 
 
 ---
 
-## 📈 Scaling This Further
+## Scaling This Further
 
 This project is intentionally scoped as a working MVP. Here's how you'd scale each piece in production:
 
@@ -374,9 +374,3 @@ This project is intentionally scoped as a working MVP. Here's how you'd scale ea
 - **Big data pipeline** → Replace in-memory matrix with Spark for distributed SVD at scale
 
 ---
-
-## 👤 Author
-
-**Aditya Sriram Barnala**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
